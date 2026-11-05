@@ -29,12 +29,12 @@ class LoginPage:
         self.driver.find_element(*self.BUTTON_LOGIN).click()
 
     #def is_sign_out_displayed(self):
-        #return self.driver.find_element(*self.SIGN_OUT_BUTTON).is_displayed()
+       #return self.driver.find_element(*self.SIGN_OUT_BUTTON).is_displayed()
+
     def is_sign_out_displayed(self):
         try:
-            WebDriverWait(self.driver,timeout=10).until(
-                expected_conditions.visibility_of_element_located(self.SIGN_OUT_BUTTON)
-            )
+            WebDriverWait(self.driver, timeout=10).until(
+                expected_conditions.visibility_of_element_located(self.SIGN_OUT_BUTTON))
             return True
         except TimeoutException:
             return False
