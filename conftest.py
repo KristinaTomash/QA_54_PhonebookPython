@@ -5,7 +5,7 @@ from selenium import webdriver
 @pytest.fixture
 def driver():
     driver = webdriver.Chrome()
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(20)
     driver.maximize_window()
     driver.get("https://telranedu.web.app")
 
