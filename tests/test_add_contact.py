@@ -1,20 +1,23 @@
 import random
 
+from faker import Faker
+
 from models.contact import Contact
 from pages.add_contact_page import ContactPage
 
 
+fake = Faker()
 def test_add_contact_success(authenticated):
     contact_page = ContactPage(authenticated)
     random_suffix = random.randint(10000,1000000)
 
     contact = Contact(
-        "Kristina",
-        "Test",
-        f"05435{random_suffix}",
-        f"test_{random_suffix}@gm.com",
-        "TelAviv",
-        "QA"
+        name = fake.first_name(),
+        last_name = fake.last_name(),
+        phone=f"05435{random_suffix}",
+        email=f"test_{random_suffix}@gm.com",
+        address=fake.street_address(),
+        description=fake.sentence(nb_words=4)
     )
     contact_page.open_contact_form()
     contact_page.fill_contact_form(contact)
@@ -27,12 +30,13 @@ def test_add_contact_success_all_req_fields(authenticated):
     random_suffix = random.randint(10000,1000000)
 
     contact = Contact(
-        "Kristina",
-        "Test",
-        f"05435{random_suffix}",
-        f"test_{random_suffix}@gm.com",
-        "TelAviv",
-        ""
+        name = fake.first_name(),
+        last_name = fake.last_name(),
+        #phone= f"05435{random_suffix}",
+        phone=fake.numerify("05#########"),
+        email=fake.email(),
+        address=fake.street_address(),
+        description=""
     )
     contact_page.open_contact_form()
     contact_page.fill_contact_form(contact)

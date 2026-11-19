@@ -7,6 +7,7 @@ from pages.base_page import BasePage
 
 
 class RegistrationPage(BasePage):
+    
     REGISTRATION_LINK = (By.CSS_SELECTOR, "a[href='/login']")
     EMAIL_INPUT = (By.CSS_SELECTOR,"input[name='email']")
     PASSWORD_INPUT = (By.CSS_SELECTOR,"input[name='password']")
@@ -17,20 +18,13 @@ class RegistrationPage(BasePage):
         self.click(self.REGISTRATION_LINK)
 
     def fill_email_field(self,email):
-        #self.driver.find_element(*self.EMAIL_INPUT).clear()
-        #self.driver.find_element(*self.EMAIL_INPUT).send_keys(email)
         self.fill(self.EMAIL_INPUT,email)
 
     def fill_password_field(self,password):
-        #self.driver.find_element(*self.PASSWORD_INPUT).clear()
-        #self.driver.find_element(*self.PASSWORD_INPUT).send_keys(password)
         self.fill(self.PASSWORD_INPUT,password)
 
     def click_on_registration_button(self):
         self.click(self.BUTTON_REGISTRATION)
-
-    #def is_sign_out_displayed(self):
-       #return self.driver.find_element(*self.SIGN_OUT_BUTTON).is_displayed()
 
     def is_sign_out_displayed(self):
         try:
