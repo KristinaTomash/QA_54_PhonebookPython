@@ -1,10 +1,10 @@
+import logging
 from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-
 from pages.base_page import BasePage
-
+logger = logging.getLogger(__name__)
 
 class LoginPage(BasePage):
     LOGIN_LINK = (By.CSS_SELECTOR, "a[href='/login']")
@@ -14,7 +14,8 @@ class LoginPage(BasePage):
     SIGN_OUT_BUTTON = (By.XPATH,"//*[text()='Sign Out']")
 
     def open_login_page(self):
-       #self.driver.find_element(*self.LOGIN_LINK).click()
+       logger.info("Opening Login form")
+       #self.driver.get(self.LOGIN_LINK)
        self.click(self.LOGIN_LINK)
 
     def fill_email_field(self,email):

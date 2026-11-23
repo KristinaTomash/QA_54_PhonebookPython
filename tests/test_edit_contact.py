@@ -1,3 +1,4 @@
+import logging
 from faker import Faker
 
 from models.contact import Contact
@@ -5,6 +6,8 @@ from pages.add_contact_page import ContactPage
 from pages.contacts_page import ContactsPage
 
 fake = Faker()
+logging = logging.getLogger(__name__)
+
 def create_contact():
     return Contact(
         name = fake.first_name(),
@@ -47,6 +50,8 @@ def test_edit_contact_last_name_field(authenticated):
     assert contacts_page.contact_last_name() == new_last_name
 
 def test_edit_contact_phone_field(authenticated):
+    logging.info("test_edit_contact_phone_field")
+    contact_page = ContactPage(authenticated)
     contact_page = ContactPage(authenticated)
     contacts_page = ContactsPage(authenticated)
 
@@ -54,6 +59,8 @@ def test_edit_contact_phone_field(authenticated):
     contact_page.create_contact_steps(contact)
     new_phone = fake.numerify(text="050########")
 
+    logging.debug(f"Old phone number: {new_phone}")
+    logging.debug(f"New phone number: {new_phone}")
 
     contacts_page.open_contact_details_card(contact.phone)
     contacts_page.open_edit_mode()
