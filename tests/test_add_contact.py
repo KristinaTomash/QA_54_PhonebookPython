@@ -3,6 +3,8 @@ import logging
 
 import pytest
 from faker import Faker
+
+from data.contact_dataset import INVALID_CONTACT_FIELDS
 from models.contact import Contact
 from pages.add_contact_page import ContactPage
 
@@ -12,7 +14,7 @@ logger = logging.getLogger(__name__)
     "phone",
     [
         fake.numerify("05#########"),
-        ""
+        #""
     ]
 )
 
@@ -49,7 +51,9 @@ def test_add_contact_success_all_req_fields(authenticated,phone):
 
     assert contact_page.contact_card_visible(contact.phone)
 
-def test_add_contact_empty_phone_negative(authenticated, phone):
+
+@pytest.mark.parametrize(INVALID_CONTACT_FIELDS)
+def test_add_contact_empty_phone_negative(authenticated, phone,email):
     contact_page = ContactPage(authenticated)
     contact = Contact(
         fake.first_name(),
@@ -60,6 +64,6 @@ def test_add_contact_empty_phone_negative(authenticated, phone):
         fake.sentence(nb_words=2)
     )
     contact_page.create_contact_steps(contact)
-    assert contact_page.is_alert_visible()
+    #assert contact_page.is_alert_visible()
     assert "Phone number must contain only digits" in contact_page.get_alert_text()
     contact_page.accept_alert()

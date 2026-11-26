@@ -1,13 +1,12 @@
 import logging
+
+from selenium.common import TimeoutException
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 logger = logging.getLogger(__name__)
 class BasePage:
     def __init__(self, driver):
-        self.driver = driver
-class BasePage:
-    def __init__(self,driver):
         self.driver = driver
 
     def find(self,locator):
@@ -30,6 +29,15 @@ class BasePage:
 
     def accept_alert(self):
         self.driver.switch_to.alert.accept()
+
+    def is_alert_visible(self):
+        try:
+            WebDriverWait(self.driver, timeout=10).until(
+                expected_conditions.alert_is_present()
+            )
+            return True
+        except TimeoutException:
+            return False
 
 
 

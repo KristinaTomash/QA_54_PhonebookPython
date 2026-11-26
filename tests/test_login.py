@@ -1,4 +1,7 @@
 from pages.login_page import LoginPage
+from tests.test_edit_contact import logging
+
+logger = logging.getLogger(__name__)
 
 VALID_EMAIL = "manuel@gmail.com"
 VALID_PASSWORD = "Manuel12345$"
@@ -6,6 +9,7 @@ INVALID_EMAIL = "manuelgmail.com"
 INVALID_PASSWORD = "Manuel12345"
 
 def test_valid_login_success(driver):
+    logger.info("test_valid_login_success")
     login_page = LoginPage(driver)
     login_page.open_login_page()
     login_page.fill_email_field(VALID_EMAIL)
@@ -14,6 +18,7 @@ def test_valid_login_success(driver):
     assert login_page.is_sign_out_displayed()
 
 def test_with_wrong_email(driver):
+    logger.info("test_invalid_wrong_email")
     login_page = LoginPage(driver)
     login_page.open_login_page()
     login_page.fill_email_field(INVALID_EMAIL)

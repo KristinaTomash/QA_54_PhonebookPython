@@ -1,7 +1,12 @@
 import uuid
 
+import logging
+
 from models.user import User
+from pages.add_contact_page import logger
 from pages.registration_page import RegistrationPage
+
+logging = logging.getLogger(__name__)
 
 def test_registration_success(driver):
     registration_page = RegistrationPage(driver)
@@ -9,8 +14,8 @@ def test_registration_success(driver):
     random_suffix = uuid.uuid4().hex[:8]
     user = User(
         f"kristina_test{random_suffix}@gmail.com",
-        "Aa1234567!"
-    )
+        "Aa1234567!")
+    logging.info("Testing successful registration")
     registration_page.open_registration_page()
     registration_page.fill_email_field(user.username)
     registration_page.fill_password_field(user.password)
